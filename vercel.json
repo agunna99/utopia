@@ -1,18 +1,41 @@
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "npm run build"
-      }
-    }
+// File: tailwind.config.js
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  // This is the most critical part. It tells Tailwind which files to scan for class names.
+  // Make sure this path is correct for your project structure.
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/dist/$1"
-    }
-  ]
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }
+
+```javascript
+// File: postcss.config.js
+
+// PostCSS is used by Vite to process CSS. Tailwind needs PostCSS to run.
+// This file tells PostCSS to use the `tailwindcss` and `autoprefixer` plugins.
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```css
+/* File: src/index.css */
+
+/*
+  These are the Tailwind directives. You must have these three lines
+  at the very beginning of your main CSS file for Tailwind to work.
+  It's a common mistake to forget this or put them in the wrong place.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any of your custom styles below these lines. */
+
